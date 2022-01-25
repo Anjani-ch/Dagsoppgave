@@ -1,3 +1,6 @@
+import { addDoc, collection, onSnapshot, query, getDocs } from 'https://www.gstatic.com/firebasejs/9.6.4/firebase-firestore.js';
+import db from './firebase.js';
+
 const body = document.querySelector('body');
 const outputMsg = document.querySelector('#output-msg');
 const nameInput = document.querySelector('#name-input');
@@ -11,7 +14,21 @@ const SESSION_KEY = 'name';
 
 const colors = ['lightgreen', 'crimson', 'lightblue', '#f7ccff', '#ffedc9'];
 
+let names = [];
 let guessedNumber;
+
+const getNames = async () => {
+    const results = [];
+    const q = query(collection(db, STORAGE_KEY));
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(doc => results.push(doc.data().name));
+
+    names = results;
+
+    updateList();
+    changeListDisplay();
+};
 
 const getRandomItem = array => {
     const number = Math.round(Math.random() * (array.length - 1));
@@ -19,25 +36,19 @@ const getRandomItem = array => {
     return array[number];
 };
 
-const updateStorage = names => localStorage.setItem(STORAGE_KEY, JSON.stringify(names));
-
 const changeOutput = (el, msg) => el.innerText = msg;
 
 const changeDisplay = (el, display) => el.style.display = display;
 
 const changeListDisplay = () => {
-    const names = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
-    if (names) changeDisplay(namesWrapper, 'block');
+    if (names.length) changeDisplay(namesWrapper, 'block');
     else changeDisplay(namesWrapper, 'none');
 };
 
 const updateList = () => {
-    const names = JSON.parse(localStorage.getItem(STORAGE_KEY));
-
     namesList.innerHTML = '';
 
-    if (names) names.forEach(name => namesList.innerHTML += `<li>${name}</li>`);
+    names.forEach(name => namesList.innerHTML += `<li>${name}</li>`);
 };
 
 const generateNumber = () => Math.round(Math.random() * 100);
@@ -69,22 +80,14 @@ const updateNumber = () => {
     }
 };
 
-nameInput.addEventListener('keyup', e => {
+nameInput.addEventListener('keyup', async e => {
     if (e.key === 'Enter') {
-        const names = JSON.parse(localStorage.getItem(STORAGE_KEY));
         let name = sessionStorage.getItem(SESSION_KEY);
+        console.log(e.target.value)
 
-        if (names) {
-            names.push(e.target.value);
-
-            updateStorage(names);
-        } else {
-            const names = [];
-
-            names.push(e.target.value);
-
-            updateStorage(names);
-        }
+        await addDoc(collection(db, STORAGE_KEY), {
+            name: e.target.value,
+        });
 
         sessionStorage.setItem(SESSION_KEY, e.target.value);
 
@@ -93,8 +96,6 @@ nameInput.addEventListener('keyup', e => {
         changeOutput(outputMsg, `Velkommen, vi ønsker deg alt som er godt, ${name}!`);
 
         changeListDisplay();
-
-        updateList();
 
         e.target.value = '';
     }
@@ -107,7 +108,7 @@ guessNumber.addEventListener('keyup', e => {
     }
 });
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     const name = sessionStorage.getItem(SESSION_KEY);
 
     if (name) changeOutput(outputMsg, `Velkommen, vi ønsker deg alt som er godt, ${name}!`);
@@ -117,4 +118,8 @@ window.addEventListener('DOMContentLoaded', () => {
     updateList();
 
     setInterval(updateNumber, 1000);
+});
+
+onSnapshot(query(collection(db, STORAGE_KEY)), (snapshot) => {
+  names = getNames();
 });

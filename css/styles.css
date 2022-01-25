@@ -1,0 +1,31 @@
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin: 10px 0px;
+    font-size: 1.2rem;
+}
+
+section {
+    text-align: center;
+    margin: 50px 0px;
+}
+
+body :first-child h1 {
+    font-size: 2rem;
+}
+
+#random-number {
+    font-size: 6rem;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
+input {
+    padding: 5px 10px;
+    border: 1px solid black;
+    font-size: 1.3rem;
+}

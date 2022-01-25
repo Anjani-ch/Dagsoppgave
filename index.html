@@ -5,24 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <script src="js/index.js" type="text/javascript" defer></script>
+    <script src="js/firebase.js" type="module"></script>
+    <!-- Local storage løsning -->
+    <!-- <script src="js/index.js" type="text/javascript" defer></script> -->
+    <!-- Firebase løsning -->
+    <script src="js/firestore.js" type="module" defer></script>
     <title>Dagsoppgave</title>
 </head>
 <body>
-    <div>
+    <section>
         <h1 id="output-msg">Skriv navnet ditt under</h1>
-        <input id="name-input" type="text" placeholder="Navn">
-    </div>
+        <input id="name-input" type="text" placeholder="Skriv navn">
+    </section>
 
-    <div id="number-wrapper">
+    <section id="number-wrapper">
         <h1 id="number-msg">Ditt lykketall dette minuttet</h1>
         <h1 id="random-number">40</h1>
-    </div>
+        <input type="number" id="guess-number" placeholder="Gjett tall">
+    </section>
 
-    <div id="names-wrapper">
+    <section id="names-wrapper">
         <h1 id="names-heading">Takk til alle som har besøkt nettstedet</h1>
 
         <ul id="names-list"></ul>
-    </div>
+    </section>
 </body>
 </html>
