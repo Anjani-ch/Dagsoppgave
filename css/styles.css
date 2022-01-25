@@ -1,3 +1,37 @@
+body :first-child h1 {
+    font-size: 2rem;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+section {
+    background: white;
+    padding: 20px;
+    width: 100%;
+    margin: 25px 0;
+    text-align: center;
+    border-radius: 40px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px 2px rgb(202, 197, 197);
+}
+
+input {
+    padding: 5px 10px;
+    border: 2px solid black;
+    font-size: 1.3rem;
+    border-radius: 5px;
+}
+
+#random-number {
+    font-size: 8rem;
+    margin: 0;
+    margin-bottom: 10px;
+    padding: 0;
+}
+
 ul {
     list-style: none;
     padding: 0;
@@ -6,26 +40,4 @@ ul {
 li {
     margin: 10px 0px;
     font-size: 1.2rem;
-}
-
-section {
-    text-align: center;
-    margin: 50px 0px;
-}
-
-body :first-child h1 {
-    font-size: 2rem;
-}
-
-#random-number {
-    font-size: 6rem;
-    margin: 0;
-    margin-bottom: 10px;
-    padding: 0;
-}
-
-input {
-    padding: 5px 10px;
-    border: 1px solid black;
-    font-size: 1.3rem;
 }

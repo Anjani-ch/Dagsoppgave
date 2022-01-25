@@ -11,6 +11,7 @@ const SESSION_KEY = 'name';
 
 const colors = ['lightgreen', 'crimson', 'lightblue', '#f7ccff', '#ffedc9'];
 
+let isWhiteBackground = true;
 let guessedNumber;
 
 const getRandomItem = array => {
@@ -53,15 +54,18 @@ const updateNumber = () => {
         changeOutput(randomNumber, `${number}`);
 
         if (number === guessedNumber) {
-            body.style.background = getRandomItem(colors);
-            audio.play();
-
-            setTimeout(() => alert('DETTE ER DIN LYKKEFARGE!'), 10);
+            if (confirm('DETTE ER DIN LYKKEFARGE!')) {
+                body.style.background = getRandomItem(colors);
+                audio.play();
+                isWhiteBackground = false;
+            }
         }
         else {
-            if (body.style.background != 'white') {
+            if (!isWhiteBackground) {
                 audio.play();
+                isWhiteBackground = true;
             }
+            
             body.style.background = 'white'
         };
 

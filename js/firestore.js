@@ -12,9 +12,10 @@ const namesList = document.querySelector('#names-list');
 const STORAGE_KEY = 'names';
 const SESSION_KEY = 'name';
 
-const colors = ['lightgreen', 'crimson', 'lightblue', '#f7ccff', '#ffedc9'];
+const colors = ['lightgreen', 'pink', 'lightblue', '#f7ccff', '#ffedc9'];
 
 let names = [];
+let isWhiteBackground = true;
 let guessedNumber;
 
 const getNames = async () => {
@@ -64,15 +65,18 @@ const updateNumber = () => {
         changeOutput(randomNumber, `${number}`);
 
         if (number === guessedNumber) {
-            body.style.background = getRandomItem(colors);
-            audio.play();
-
-            setTimeout(() => alert('DETTE ER DIN LYKKEFARGE!'), 10);
+            if (confirm('DETTE ER DIN LYKKEFARGE!')) {
+                body.style.background = getRandomItem(colors);
+                audio.play();
+                isWhiteBackground = false;
+            }
         }
         else {
-            if (body.style.background != 'white') {
+            if (!isWhiteBackground) {
                 audio.play();
+                isWhiteBackground = true;
             }
+
             body.style.background = 'white'
         };
 
@@ -119,6 +123,4 @@ window.addEventListener('DOMContentLoaded', async () => {
     setInterval(updateNumber, 1000);
 });
 
-onSnapshot(query(collection(db, STORAGE_KEY)), (snapshot) => {
-  names = getNames();
-});
+onSnapshot(query(collection(db, STORAGE_KEY)), () => names = getNames());
