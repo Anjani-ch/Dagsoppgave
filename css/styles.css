@@ -8,7 +8,7 @@ body :first-child h1 {
 }
 
 section {
-    background: white;
+    background: rgb(255, 88, 88);
     padding: 20px;
     width: 100%;
     margin: 25px 0;
@@ -16,6 +16,7 @@ section {
     border-radius: 40px;
     box-sizing: border-box;
     box-shadow: 0px 0px 10px 2px rgb(202, 197, 197);
+    color: white;
 }
 
 input {
@@ -38,6 +39,6 @@ ul {
 }
 
 li {
-    margin: 10px 0px;
-    font-size: 1.2rem;
+    margin: 15px 0px;
+    font-size: 2.1rem;
 }
