@@ -83,7 +83,6 @@ const updateNumber = () => {
 nameInput.addEventListener('keyup', async e => {
     if (e.key === 'Enter') {
         let name = sessionStorage.getItem(SESSION_KEY);
-        console.log(e.target.value)
 
         await addDoc(collection(db, STORAGE_KEY), {
             name: e.target.value,
